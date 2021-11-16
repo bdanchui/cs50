@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <cs50.h>
+
+void build_pyramid(void)
+{
+    int n;
+    do
+    {
+        // Desired height of pyramid
+        n = get_int("Height of Pyramid: ");
+    }
+    // Ensure height is between 0<n<9
+    while (n<1 || n>8);
+    
+    // Creating height of pyramid
+    for (int height = 1; height<n+1; height++)
+    {
+        // As the number of space is equivalent to desired height - looped height. Create a for loop to create that number of spaces
+        for (int dots = height; dots < n; dots++)
+        {
+            printf(" ");
+        }
+        // Creating No. of # based on height
+        for (int length = 0; length < height; length ++)
+        {
+            printf("#");
+        }
+        // Creating space for height
+        printf("\n");
+    }
+}
+
+int main(void)
+{
+    // building the pyramid
+    build_pyramid();
+}
