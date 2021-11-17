@@ -1,0 +1,67 @@
+// get card number from users (input)
+// ensure that it is a positive number
+// multiply every other 2 digit, starting from the back
+// sum up the digits of the products
+// sum up the sum of the digits with the remaining numbers
+// if last digit ends with 0, it is valid
+// determine if card is VISA, mastercard, AMEX or invalid
+
+#include <stdio.h>
+#include <cs50.h>
+#include <math.h>
+
+void check_card(void)
+{
+    long card_number = get_long("Number: ");
+     
+     // getting last 2 digits
+     
+    int sum_product = 0;
+    long position = 100;
+    
+    while (card_number*100 > position)
+    {
+        // Getting the 2 digits and splitting them
+        int two_digits = ((card_number%position)/(position/100));
+        int first_digit = two_digits/10;
+        int second_digit = two_digits%10;
+        
+        // Summing the digits of product
+        if (first_digit*2 < 10)
+        {
+            sum_product += first_digit*2;
+        }
+        else
+        {
+            sum_product += (first_digit*2-9);
+        }
+        sum_product += second_digit;
+        position *= 100;
+    }
+    int check_zero = sum_product%10;
+    long length_15 = powl(10, 13);
+    long length_13 = powl(10, 11);
+    long length_16 = powl(10, 14);
+    
+    if (((card_number/length_13 == 4) || (card_number/(length_16*10) == 4)) && check_zero == 0)
+    {
+        printf("VISA\n");
+    }
+    else if (((card_number/length_15 == 34) || (card_number/length_15 == 37)) && check_zero == 0)
+    {
+        printf("AMEX\n");
+    }
+    else if ((card_number/length_16 == 51 || card_number/length_16 == 52 || card_number/length_16 == 53 || card_number/length_16 == 54 || card_number/length_16 == 55) && check_zero == 0)
+    {
+        printf("MASTERCARD\n");
+    }
+    else
+    {
+        printf("INVALID\n");
+    }
+}
+
+int main(void)
+{
+    check_card();
+}
