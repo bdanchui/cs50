@@ -43,12 +43,12 @@ int compute_score(string word)
     for (int i = 0, n = strlen(word); i < n; i++)
     {
         int letter;
-        if (word[i] >'a' && word[i] < 'z')
+        if (word[i] >= 'a' && word[i] <= 'z')
         {
             letter = toupper(word[i]) - 65;
             score += POINTS[letter];
         }
-        else if (word[i] > 'A' && word[i] < 'Z')
+        else if (word[i] >= 'A' && word[i] <= 'Z')
         {
             letter = word[i] - 65;
             score += POINTS[letter];
