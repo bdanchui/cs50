@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <cs50.h>
+
+int main(void)
+{
+    int start_population;
+    int end_population;
+    do
+    {
+        start_population = get_int("Start size: ");
+    }
+    while (start_population < 9);
+    
+    do
+    {
+        end_population = get_int("End size: ");
+    }
+    while (end_population < start_population);
+    
+    int years = 0;
+    
+    while (end_population > start_population)
+    {
+        int born = start_population/3;
+        int death = start_population/4;
+        
+        start_population += born;
+        start_population -= death;
+        years += 1;
+    }
+    printf("Years: %i\n", years);
+}

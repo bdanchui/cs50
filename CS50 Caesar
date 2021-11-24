@@ -1,0 +1,66 @@
+#include <cs50.h>
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
+
+bool check_num(string value);
+void caesar_cipher(string text, int key);
+
+int main(int argc, string argv[])
+{
+    // check inputs for alpha, negative number, more than 2 inputs
+    if (argc != 2 || !check_num(argv[1]))
+    {
+        printf("Usage: %s key\n", argv[0]);
+        return 1;
+    }
+    int key = atoi(argv[1]);
+    
+    // ("Success\n");
+    // printf("%i\n", key);
+    
+    // encrypting message
+    string plaintext = get_string ("Plaintext: "); 
+    printf("ciphertext: ");
+    caesar_cipher(plaintext, key);
+    printf("\n");
+    
+    return 0;
+}
+
+bool check_num(string value)
+{
+    for (int i = 0, n = strlen(value); i < n; i++)
+    {
+        if (isdigit(value[i]) == 0 )
+        {
+            printf("Usage: ./caesar key\n");
+            return false;
+        }
+    }
+    return true;
+}
+
+void caesar_cipher(string text, int key)
+{
+    char c;
+    for (int i = 0, n = strlen(text); i<n; i++)
+    {
+        c = text[i];
+        if (isupper(c))
+        {
+            c = (c-'A'+key)%26;
+            printf("%c", c + 'A');
+        }
+        else if (islower(c))
+        {
+            c = (c+key-'a')%26;
+            printf("%c", c + 'a');
+        }
+        else
+        {
+            printf("%c", c);   
+        }
+    }
+}

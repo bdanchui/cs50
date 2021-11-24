@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <cs50.h>
+
+// Algorithm for Mario
+// Step 1: Get input of the height
+// Step 2: build # key based on height
+// Step 3: build 2 space between # key 
+// Step 4: build # key based on height
+// Step 5: Repeat step 2-4 until desired height is met.
+
+void build_pyramid(void)
+{
+    int height;
+    //Desired Height
+    do
+    {
+        height = get_int("Height: ");   
+    }
+    while (height < 1 || height > 8);
+    
+    // Building desired height
+    for (int i = 0; i < height; i++)
+    {
+        //build inital before pyramid
+        for (int j = i + 1; j < height; j++)
+        {
+            printf(" ");
+        }
+        //build # block
+        for (int block = 0; block < i+1; block++)
+        {
+            printf("#");
+        }
+        //build spaces between blocks
+        for (int space = 0; space <2; space ++)
+        {
+            printf(" ");
+        }
+        //build remaining # block
+        for (int block = 0; block < i + 1; block++)
+        {
+            printf("#");
+        }
+        //proceeding to next row
+        printf("\n");
+    }
+}
+
+int main(void)
+{
+    build_pyramid();
+}

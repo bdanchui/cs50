@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <cs50.h>
+#include <ctype.h>
+#include <string.h>
+#include <math.h>
+
+//Initializing prototype function
+int check_grade(string text);
+
+// Constant value to calculate average per 100 later
+const float average = 100;
+
+int main(void)
+{
+    // Checking grades of person who typed  this sentence
+    string text;
+    int grade;
+    text = get_string("Text: ");
+    grade = check_grade(text);
+    
+    if (grade >= 16)
+    {
+        printf("Grade: 16++\n");
+    }
+    else if (grade < 1)
+    {
+        printf("Before Grade 1");
+    }
+    else
+    {
+        printf("Grade: %i\n", grade);
+    }
+}
+
+int check_grade(string text)
+{
+    int letter = 0;
+    int word = 1;
+    int sentence = 0;
+    
+    // counting number of letters, words and sentences
+    for (int i = 0, n = strlen(text); i < n; i++)
+    {
+        char c = text[i];
+        if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+        {
+            letter++;
+        }
+        else if (c == ' ')
+        {
+            word++;
+        }
+        else if (c == '.' || c == '!' || c == '?')
+        {
+            sentence++;
+        }
+    }
+    
+    // determining grade
+    float L = ((float) letter/word)*average;
+    float S = ((float) sentence/word)*average;
+    return (roundf) (0.0588 * L - 0.296 * S - 15.8);
+}

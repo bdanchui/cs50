@@ -1,0 +1,74 @@
+// step 1) get amount of change from user input
+// step 2) Objective is to give minimnum number of coins (25c, 10c, 5c, 1c)
+// step 3) Determine number of 25c that we can change to user input
+// step 4) Remaining change amount of giving 25c coins
+// step 5) Repeat step 3-4 for 10,5,1c
+
+#include <stdio.h>
+#include <cs50.h>
+#include <math.h>
+
+void Minimum_Change(void)
+{
+    // Getting change amount in dollars
+    float change_dollar;
+    do
+    {
+        change_dollar = get_float("Change owed: ");
+    }
+    // Continue to ask for change if the change is less than $0
+    while (change_dollar <= 0);
+    
+    // Converting dollars to cents
+    int cents = round(change_dollar*100);
+    int count_coins = 0;
+    while (cents != 0)
+    {
+        if (cents/25 != 0)
+        {
+            count_coins += cents/25;
+            cents -= ((cents/25) * 25);
+        }
+        else if (cents/10 != 0)
+        {
+            count_coins += cents/10;
+            cents -= ((cents/10) * 10);
+        }
+        else if (cents/5 != 0)
+        {
+            count_coins += cents/5;
+            cents -= ((cents/5) * 5);
+        }
+        else
+        {
+            count_coins += cents;
+            cents -= cents;
+        }
+    }
+
+    printf("%i\n", count_coins);
+}
+int main(void)
+{
+    Minimum_Change();
+}
+
+// brute force method
+/* int change_cents = round(change_dollar * 100);
+    int count_coins = 0;
+    
+    int coin_25 = 25;
+    count_coins += (change_cents/coin_25);
+    int Remaining_amount = change_cents - (count_coins*coin_25);
+    
+    int coin_10 = 10;
+    count_coins += (Remaining_amount/coin_10);
+    Remaining_amount -= ((Remaining_amount/coin_10)*(10));
+    
+    int coin_5 = 5;
+    count_coins += (Remaining_amount/coin_5);
+    Remaining_amount -= ((Remaining_amount/coin_5)*(5));
+    
+    int coin_1 = 1;
+    count_coins += (Remaining_amount/coin_1);
+    Remaining_amount -= ((Remaining_amount/coin_1)*1); */ 
